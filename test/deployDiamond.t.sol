@@ -67,6 +67,13 @@ contract DiamondDeployer is Test, IDiamondCut {
 
         //upgrade diamond
         IDiamondCut(address(diamond)).diamondCut(cut, address(0x0), "");
+        SetterGetter(address(diamond)).setName("Aji");
+        string memory name = SetterGetter(address(diamond)).getName();
+
+        assert(
+            keccak256(abi.encodePacked(name)) ==
+                keccak256(abi.encodePacked("Aji"))
+        ); // Ensure string comparison works
     }
 
     function generateSelectors(
